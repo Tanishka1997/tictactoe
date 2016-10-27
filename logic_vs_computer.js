@@ -4,7 +4,38 @@ var multi=new Array(3);
                multi[2]=['-','-','-'];
 
 var player ='x';
-var opponent='y';
+var opponent='0';
+function init(){
+  localStorage.setItem("turn","0");
+  print("1");
+}
+function print(a){
+  if(a=="1")
+    document.getElementById("p_turn").innerHTML="Your Turn";
+  else
+    document.getElementById("p_turn").innerHTML="Computer Turn";
+
+}
+function change(clicked_id,x,y){
+  var count=localStorage.getItem("turn");
+  var ct=parseInt(count)+1;
+  var b=document.getElementById(clicked_id).innerHTML;
+     if(ct%2!=0&&b=='-')
+     print("0");
+     else if(b=='-')
+     print("1");
+   if(b==='-'&&ct%2!=0){
+    document.getElementById(clicked_id).value='x';
+
+  document.getElementById(clicked_id).innerHTML='x';
+  localStorage.setItem("turn",""+ct);
+  multi[x][y]='x';
+  findBestMove();
+
+ }
+
+}
+
   function isMoveLeft(){
    for(var i=0;i<3;i++)
     for(var j=0;j<3;j++)
@@ -46,7 +77,7 @@ var opponent='y';
     {
         if (multi[0][0]==player)
             return +10;
-        else if (b[0][0]==opponent)
+        else if (multi[0][0]==opponent)
             return -10;
     }
 
@@ -73,7 +104,7 @@ function minimax(depth,isMax){
        for(var j=0;j<3;j++){
          if(multi[i][j]=='-'){
            multi[i][j]=player;
-           best=max(best,minimax(depth+1,!ismax));
+           best=Math.max(best,minimax(depth+1,!isMax));
            multi[i][j]='-';
          }
        }
@@ -81,12 +112,12 @@ function minimax(depth,isMax){
      return best;
    }
    else {
-     var best=-1000;
+     var best=1000;
      for(var i=0;i<3;i++){
        for(var j=0;j<3;j++){
          if(multi[i][j]=='-'){
            multi[i][j]=opponent;
-           best=max(best,minimax(depth+1,!ismax));
+           best=Math.min(best,minimax(depth+1,!isMax));
            multi[i][j]='-';
          }
        }
@@ -94,22 +125,135 @@ function minimax(depth,isMax){
      return best;
    }
 }
+function findPosition(i,j){
+   if(i==0&&j==0){
+   var count=localStorage.getItem("turn");
+   var ct=parseInt(count)+1;
+      if(ct%2!=0)
+      print("0");
+      else
+      print("1");
+   document.getElementById("r1c1").value='0';
+   document.getElementById("r1c1").innerHTML='0';
+   localStorage.setItem("turn",""+ct);
+   multi[i][j]='0';
+  }
+else if(i==0&&j==1){
+  var count=localStorage.getItem("turn");
+  var ct=parseInt(count)+1;
+     if(ct%2!=0)
+     print("0");
+     else
+     print("1");
+  document.getElementById("r1c2").value='0';
+  document.getElementById("r1c2").innerHTML='0';
+  localStorage.setItem("turn",""+ct);
+  multi[i][j]='0';
+ }
+ else if(i==0&&j==2){
+ var count=localStorage.getItem("turn");
+ var ct=parseInt(count)+1;
+    if(ct%2!=0)
+    print("0");
+    else
+    print("1");
+ document.getElementById("r1c3").value='0';
+ document.getElementById("r1c3").innerHTML='0';
+ localStorage.setItem("turn",""+ct);
+ multi[i][j]='0';
+}
+else if(i==1&&j==0){
+var count=localStorage.getItem("turn");
+var ct=parseInt(count)+1;
+   if(ct%2!=0)
+   print("0");
+   else
+   print("1");
+document.getElementById("r2c1").value='0';
+document.getElementById("r2c1").innerHTML='0';
+localStorage.setItem("turn",""+ct);
+multi[i][j]='0';
+}
+else if(i==1&&j==1){
+var count=localStorage.getItem("turn");
+var ct=parseInt(count)+1;
+   if(ct%2!=0)
+   print("0");
+   else
+   print("1");
+document.getElementById("r2c2").value='0';
+document.getElementById("r2c2").innerHTML='0';
+localStorage.setItem("turn",""+ct);
+multi[i][j]='0';
+}
+else if(i==1&&j==2){
+var count=localStorage.getItem("turn");
+var ct=parseInt(count)+1;
+   if(ct%2!=0)
+   print("0");
+   else
+   print("1");
+document.getElementById("r2c3").value='0';
+document.getElementById("r2c3").innerHTML='0';
+localStorage.setItem("turn",""+ct);
+multi[i][j]='0';
+}
+else if(i==2&&j==0){
+var count=localStorage.getItem("turn");
+var ct=parseInt(count)+1;
+   if(ct%2!=0)
+   print("0");
+   else
+   print("1");
+document.getElementById("r3c1").value='0';
+document.getElementById("r3c1").innerHTML='0';
+localStorage.setItem("turn",""+ct);
+multi[i][j]='0';
+}
+else if(i==2&&j==1){
+var count=localStorage.getItem("turn");
+var ct=parseInt(count)+1;
+   if(ct%2!=0)
+   print("0");
+   else
+   print("1");
+document.getElementById("r3c2").value='0';
+document.getElementById("r3c2").innerHTML='0';
+localStorage.setItem("turn",""+ct);
+multi[i][j]='0';
+}
+else if(i==2&&j==2){
+var count=localStorage.getItem("turn");
+var ct=parseInt(count)+1;
+   if(ct%2!=0)
+   print("0");
+   else
+   print("1");
+document.getElementById("r3c3").value='0';
+document.getElementById("r3c3").innerHTML='0';
+localStorage.setItem("turn",""+ct);
+multi[i][j]='0';
+}
+}
 function findBestMove(){
-  var bestVal=-1000;
-  var row=-1;
-  var col=-1;
+  var bestVal=1000;
+  var row=20;
+  var col=20;
   for(var i=0;i<3;i++){
     for(var j=0;j<3;j++){
       if(multi[i][j]=='-'){
-        multi[i][j]=player;
-        var val=minimax(0,false);
+        multi[i][j]=opponent;
+        var val=minimax(0,true);
         multi[i][j]='-';
-        if(val>bestVal){
+        if(val<bestVal){
           row=i;
           col=j;
           bestVal=val;
+
         }
       }
     }
   }
+  console.log(row,col);
+  findPosition(row,col);
 }
