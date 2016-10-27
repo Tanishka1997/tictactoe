@@ -1,0 +1,37 @@
+<html>
+ <head>
+ 	<style type="text/css">
+    td,button{
+    	width: 50px;
+        height: 50px;
+        border: 1px solid black;
+    }
+    table{
+    	border: 1px solid black;
+    }
+ 	</style>
+ 	<script type="text/javascript" src="logic_vs_computer.js">
+
+ 	</script>
+ </head>
+ <body onload="init()">
+ <table align="center">
+ <tr>
+   <td background="green"><button id="r1c1" onclick="change(this.id,0,0)">-</button></td>
+   <td background="green"><button onclick="change(this.id,0,1)" id="r1c2" >-</button></td>
+   <td background="green"><button onclick="change(this.id,0,2)" id="r1c3">-</button></td>
+  </tr>
+  <tr>
+   <td background="green"><button onclick="change(this.id,1,0)" id="r2c1">-</button></td>
+   <td background="green"><button onclick="change(this.id,1,1)" id="r2c2">-</button></td>
+   <td background="green"><button onclick="change(this.id,1,2)" id="r2c3">-</button></td>
+  </tr>
+  <tr>
+   <td background="green"><button onclick="change(this.id,2,0)" id="r3c1">-</button></td>
+   <td background="green"><button onclick="change(this.id,2,1)" id="r3c2">-</button></td>
+   <td background="green"> <button onclick="change(this.id,2,2)" id="r3c3">-</button></td>
+  </tr>
+ </table>
+ <p id="p_turn"></p>
+ </body>
+</html>
