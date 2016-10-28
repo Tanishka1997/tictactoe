@@ -5,10 +5,16 @@ var multi=new Array(3);
 
 var player ='x';
 var opponent='0';
+
+function refresh(){
+  location.reload();
+}
+
 function init(){
   localStorage.setItem("turn","0");
   print("1");
 }
+
 function print(a){
   if(a=="1")
     document.getElementById("p_turn").innerHTML="Your Turn";
@@ -16,6 +22,7 @@ function print(a){
     document.getElementById("p_turn").innerHTML="Computer Turn";
 
 }
+
 function change(clicked_id,x,y){
   var count=localStorage.getItem("turn");
   var ct=parseInt(count)+1;
@@ -25,15 +32,23 @@ function change(clicked_id,x,y){
      else if(b=='-')
      print("1");
    if(b==='-'&&ct%2!=0){
-    document.getElementById(clicked_id).value='x';
-
-  document.getElementById(clicked_id).innerHTML='x';
-  localStorage.setItem("turn",""+ct);
-  multi[x][y]='x';
-  setTimeout(mv,1400);
+     document.getElementById(clicked_id).value='x';
+     document.getElementById(clicked_id).innerHTML='x';
+     localStorage.setItem("turn",""+ct);
+     multi[x][y]='x';
+     var val=evaluate();
+     if(val==0)
+      setTimeout(mv,1400);
+     else if(val==10){
+      alert("You Won");
+      refresh();
+     }
+     else if(!isMoveLeft()){
+       alert("Game Draw");
+       refresh();
+     }
+   }
  }
-
-}
 
   function isMoveLeft(){
    for(var i=0;i<3;i++)
@@ -42,7 +57,9 @@ function change(clicked_id,x,y){
       return true;
     return false;
     }
-    function evaluate()
+
+
+  function evaluate()
 {
     // Checking for Rows for X or O victory.
     for (var row = 0; row<3; row++)
@@ -91,6 +108,8 @@ function change(clicked_id,x,y){
     // Else if none of them have won then return 0
     return 0;
 }
+
+
 function minimax(depth,isMax){
    var score=evaluate();
    if(score==10||score==-10)
@@ -124,6 +143,8 @@ function minimax(depth,isMax){
      return best;
    }
 }
+
+
 function findPosition(i,j){
    if(i==0&&j==0){
    var count=localStorage.getItem("turn");
@@ -233,7 +254,19 @@ document.getElementById("r3c3").innerHTML='0';
 localStorage.setItem("turn",""+ct);
 multi[i][j]='0';
 }
+var val=evaluate();
+if(val==-10){
+ alert("Computer Won");
+ refresh();
 }
+ else if(!isMoveLeft()){
+  alert("Game Draw");
+  refresh();
+ }
+
+}
+
+
 var mv=function findBestMove(){
   var bestVal=1000;
   var row=20;

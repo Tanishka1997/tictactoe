@@ -2,7 +2,12 @@ var multi=new Array(3);
                multi[0]=['-','-','-'];
                multi[1]=['-','-','-'];
                multi[2]=['-','-','-'];
- 		function init(){
+
+
+   function refresh(){
+     location.reload();
+   }
+    function init(){
  			localStorage.setItem("turn","0");
  			print("1");
  		}
@@ -22,6 +27,7 @@ var multi=new Array(3);
                   multi[x][y]='x';
                   if((multi[(x+1)%3][y]=='x'&&multi[(x+2)%3][y]=='x')||(multi[x][(y+1)%3]=='x'&&multi[x][(y+2)%3]=='x')||(multi[(x+1)%3][(y+1)%3]=='x'&&multi[(x+2)%3][(y+2)%3]=='x'&&x==y)||(multi[(x+1)%3][(y+2)%3]=='x'&&multi[(x+2)%3][(y+1)%3]=='x'&&x==2-y)){
                     alert('Player 1 won');
+                    refresh();
                     flag=1;
                     }
                   }
@@ -30,6 +36,7 @@ var multi=new Array(3);
                   if((multi[(x+1)%3][y]=='0'&&multi[(x+2)%3][y]=='0')||(multi[x][(y+1)%3]=='0'&&multi[x][(y+2)%3]=='0')||(multi[(x+1)%3][(y+1)%3]=='0'&&multi[(x+2)%3][(y+2)%3]=='0'&&x==y)||(multi[(x+1)%3][(y+2)%3]=='0'&&multi[(x+2)%3][(y+1)%3]=='0'&&x==(2-y))){
                     alert('Player 2 won'+multi[1][1]);
                     flag=1;
+                    refresh();
                     }
 
                    }
@@ -41,8 +48,10 @@ var multi=new Array(3);
                     }
                     }
                   }
-                  if(k==0&&flag==0)
+                  if(k==0&&flag==0){
                   alert('Draw');
+                  refresh();
+                  }
                 }
  		function change(clicked_id,x,y){
  			var count=localStorage.getItem("turn");
