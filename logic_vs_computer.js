@@ -30,8 +30,7 @@ function change(clicked_id,x,y){
   document.getElementById(clicked_id).innerHTML='x';
   localStorage.setItem("turn",""+ct);
   multi[x][y]='x';
-  findBestMove();
-
+  setTimeout(mv,1400);
  }
 
 }
@@ -235,7 +234,7 @@ localStorage.setItem("turn",""+ct);
 multi[i][j]='0';
 }
 }
-function findBestMove(){
+var mv=function findBestMove(){
   var bestVal=1000;
   var row=20;
   var col=20;
